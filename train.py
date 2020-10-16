@@ -13,6 +13,7 @@ import numpy as np
 import time
 import argparse
 from pathlib import Path
+import os
 
 
 def parse_args():
@@ -32,7 +33,7 @@ def parse_args():
     parser.add_argument("--cond_disc", action="store_true")
 
     parser.add_argument("--data_path", default='training_data', type=Path)
-    parser.add_argument("--batch_size", type=int, default=16)
+    parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--seq_len", type=int, default=8192)
 
     parser.add_argument("--epochs", type=int, default=3000)
@@ -84,6 +85,10 @@ def main():
     #######################
     # Create data loaders #
     #######################
+    if not os.path.exists(args.data_path):
+        print('data_path {} not exists'.format(args.data_path))
+        raise Exception
+
     train_set = AudioDataset(
         Path(args.data_path) / "train.txt", args.seq_len, sampling_rate=22050
     )
