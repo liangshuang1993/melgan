@@ -40,7 +40,7 @@ class MelVocoder:
             netG = Generator(80, 32, 3).to(device)
             root = Path(os.path.dirname(__file__)).parent
             netG.load_state_dict(
-                torch.load(root / f"models/{model_name}.pt", map_location=device)
+                torch.load(root / "models/{model_name}.pt", map_location=device)
             )
             self.mel2wav = netG
         else:

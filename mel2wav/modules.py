@@ -184,7 +184,7 @@ class Discriminator(nn.Module):
         super().__init__()
         self.model = nn.ModuleDict()
         for i in range(num_D):
-            self.model[f"disc_{i}"] = NLayerDiscriminator(
+            self.model["disc_{i}"] = NLayerDiscriminator(
                 ndf, n_layers, downsampling_factor
             )
 
