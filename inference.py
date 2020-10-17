@@ -4,6 +4,7 @@ import tqdm
 import torch
 import argparse
 from scipy.io.wavfile import write
+import numpy as np
 
 from mel2wav.modules import Generator
 
@@ -28,7 +29,7 @@ def main(args):
             audio = audio.cpu().detach().numpy()
 
             out_path = melpath.replace('.npy', '.wav')
-            write(out_path, audio)
+            write(out_path, 22050, audio)
 
 
 if __name__ == '__main__':
@@ -38,9 +39,9 @@ if __name__ == '__main__':
     parser.add_argument('-i', '--input_folder', type=str, required=True,
                         help='directory of mel-spectrograms to invert into raw audio.')
     
-    parser.add_argument('-n_mel_channels', type=int, default=80)
-    parser.add_argument('-ngf', type=int, default=32)
-    parser.add_argument('-n_residual_layers', type=int, default=3)
+    parser.add_argument('--n_mel_channels', type=int, default=80)
+    parser.add_argument('--ngf', type=int, default=32)
+    parser.add_argument('--n_residual_layers', type=int, default=3)
 
     args = parser.parse_args()
 
